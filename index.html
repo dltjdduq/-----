@@ -22,13 +22,19 @@
             <!--포춘쿠키 이미지 넣기-->
             <div id="box-container">
                 <div class="box">
-                    <img src="./fortune-cookie-before.png" alt="포춘쿠키">
+                    <img src="./fortune-cookie-before.png"
+                     alt="포춘쿠키"
+                     onclick="selectCookie(1)">
                 </div>
                 <div class="box">
-                    <img src="./fortune-cookie-before.png" alt="포춘쿠키">
+                    <img src="./fortune-cookie-before.png"
+                     alt="포춘쿠키"
+                     onclick="selectCookie(2)">
                 </div>
                 <div class="box">
-                    <img src="./fortune-cookie-before.png" alt="포춘쿠키">
+                    <img src="./fortune-cookie-before.png"
+                     alt="포춘쿠키"
+                     onclick="selectCookie(3)">
                 </div>
             </div>
             <!--포춘쿠키 운세 결과 포여주기-->  
@@ -56,6 +62,51 @@
                 contents.classList.remove('hide')
             }
         }
+
+        // 포춘쿠키가 선택되었는지 확인하는 리스트
+        const selected = [false, false, false]
+        function selectCookie(number) {
+            // 선택되지 않았을때
+            if(selected[number-1] == false) { 
+                // window, consolem document, event => 자바스크립에서 제공해주는 변수
+                const target = event.target
+                // target은 img 태그이므로 이미지가 있는 위치인 src 속성에 접근할 수 있다
+                target.src = "./fortune-cookie-after.png"
+                // 포춘쿠키가 선택되었다는 표시하기
+                selected[number-1] = true 
+                // 운세 메세지 보여주기
+                showMessage()               
+            } else {
+                window.alert('이미 선택된 쿠키입니다!!')
+            }
+            
+        } 
+        
+        // 운세메세지 띄워주기
+        const messages = [
+            '생각한것보다 많은 수익이 있으니 무엇이라도 도전하세요',
+            '마음에 두고 있는 사람이 있다면 걱정 말고 고백해 보도록 하십시오. 당신이 소극적으로 상대방에게 다가간다면 그것은 오히려 당신의 사랑에 커다란 장애요인이 되고 말 것입니다.',
+            '평소에 약했던 부분에 강세를 띄는 날입니다. 입시를 앞둔 당신에게는 부족한 시간에 많은 것을 공부하는 요즘입니다.',
+            '전반적으로 상승 분위기를 크게 타고 있는 오늘입니다. 이런 기회를 잘 살려서 앞으로의 생활에서도 계속 유지해 나갈 수 있도록 하십시오.',
+            '평소에 약했던 부분에 강세를 띄는 날입니다. 입시를 앞둔 당신에게는 부족한 시간에 많은 것을 공부하는 요즘입니다. '
+
+    ]
+        function showMessage(){
+            const result = document.getElementById("result-message")
+            // 랜텀한 인덱스를 반환해준다
+            let idx = getRandomInt(0,messages.length) //len(message)
+            // 운세 결과 창에 랜텀한 운세 메세지를 넣는다
+            result.innerText = messages[idx]
+        }
+        // 두 정수 사이의 랜덤한 값을 반환해주는 함수
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}
+
+        
+
 
 
 
